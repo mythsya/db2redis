@@ -39,28 +39,39 @@ public class DataTransferServiceImpl implements DataTransferService{
 			logger.info("=======================================================================================");
 			logger.info("parameters : start => "+startstr+" , end => "+ends);
 		}
-		List<SimplePatient> pinfos = simplePatientRepository.findSimplePatientInfosWithinOneday(start, end);
+		//List<SimplePatient> pinfos = simplePatientRepository.findSimplePatientInfosWithinOneday(start, end);
+		List<Object> pinfos = simplePatientRepository.findSimplePatientVisitsWithinOneday(start, end);
 		int total = pinfos.size();
 		long patientCount = getPatientCount();
 		if (total > 0) {
 			try {
-				for(SimplePatient pat : pinfos) {
+				for(Object o : pinfos) {
+					SimplePatientVisit pat = new SimplePatientVisit((Object[])o);
 					String prefix = "pat:"+pat.getPatientId()+":";
-					if (!isKeyExists(prefix+"id")) { 
+					if (!isKeyExists(prefix+"pid")) { 
 						setKeyValue("pat:"+patientCount, pat.getPatientId());
-						setKeyValue(prefix+"id", pat.getId());
 						setKeyValue(prefix+"idx", String.valueOf(patientCount));
 						setKeyValue(prefix+"pid", pat.getPatientId());
-						setKeyValue(prefix+"name", pat.getName());
-						setKeyValue(prefix+"py", pat.getPinyin());
-						setKeyValue(prefix+"sex", pat.getGender());
-						setKeyValue(prefix+"bhd", DateUtil.format(pat.getBirthdate(), DateUtil.DATE_FORMAT_YYYYMMDD));
-						setKeyValue(prefix+"inpid", pat.getInpId());
-						setKeyValue(prefix+"outpid", pat.getOutpId());
-						setKeyValue(prefix+"vcid", pat.getVisitcardId());
 						
 						patientCount ++;
 					}
+						
+					setKeyValue(prefix+"id", pat.getId());
+					setKeyValue(prefix+"name", pat.getName());
+					setKeyValue(prefix+"py", pat.getPinyin());
+					setKeyValue(prefix+"sex", pat.getGender());
+					setKeyValue(prefix+"bhd", DateUtil.format(pat.getBirthdate(), DateUtil.DATE_FORMAT_YYYYMMDD));
+					setKeyValue(prefix+"inpid", pat.getInpId());
+					setKeyValue(prefix+"outpid", pat.getOutpId());
+					setKeyValue(prefix+"vcid", pat.getVisitcardId());
+					setKeyValue(prefix+"phid", pat.getPhysicalChkId());
+					
+					setKeyValue(prefix+"vno", pat.getVisitNumber());
+					setKeyValue(prefix+"pcls", pat.getPatientClass());
+					setKeyValue(prefix+"nsst", pat.getNurseStation());
+					setKeyValue(prefix+"room", pat.getRoom());
+					setKeyValue(prefix+"bed", pat.getBed());
+					
 				}
 			} finally {
 				updateRedisPatientCount(patientCount);

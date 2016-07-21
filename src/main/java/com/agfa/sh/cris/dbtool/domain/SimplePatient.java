@@ -38,6 +38,18 @@ public class SimplePatient implements Serializable{
 	@Column(name = "p_birthdate")
 	private Timestamp birthdate;
 	
+	@Column(name = "p_inpatient_id")
+	private String inpId;
+	
+	@Column(name = "p_outpatient_id")
+	private String outpId;
+	
+	@Column(name = "p_visitcard_id")
+	private String visitcardId;
+	
+	@Column(name = "p_physicalchk_id")
+	private String physicalChkId;
+	
 	public String getId() {
 		return id;
 	}
@@ -118,16 +130,4 @@ public class SimplePatient implements Serializable{
 		this.physicalChkId = physicalChkId;
 	}
 
-	@Column(name = "p_inpatient_id")
-	private String inpId;
-	
-	@Column(name = "p_outpatient_id")
-	private String outpId;
-	
-	@Column(name = "p_visitcard_id")
-	private String visitcardId;
-	
-	@Column(name = "p_physicalchk_id")
-	private String physicalChkId;
-	
 }
