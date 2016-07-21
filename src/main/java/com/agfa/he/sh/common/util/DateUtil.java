@@ -190,17 +190,17 @@ public class DateUtil {
 		}
 	}
 
-	public static void main(String[] args) {
-		String t1 = DateUtil.format(DateUtil.parse("090010", DateUtil.DATE_FORMAT_HHMMSS), "HH:mm");
-		System.out.println(t1);
-
-		Timestamp ts = DateUtil.getTimestampCurrent();
-		System.out.println(ts);
-		ts = DateUtil.getDateWithoutTime(ts);
-		System.out.println(ts);
-		ts = DateUtil.getNextDateWithoutTime(ts);
-		System.out.println(ts);
-	}
+//	public static void main(String[] args) {
+//		String t1 = DateUtil.format(DateUtil.parse("090010", DateUtil.DATE_FORMAT_HHMMSS), "HH:mm");
+//		System.out.println(t1);
+//
+//		Timestamp ts = DateUtil.getTimestampCurrent();
+//		System.out.println(ts);
+//		ts = DateUtil.getDateWithoutTime(ts);
+//		System.out.println(ts);
+//		ts = DateUtil.getNextDateWithoutTime(ts);
+//		System.out.println(ts);
+//	}
 
 	public static Timestamp parse(String strDateTime, String sFormat) {
 		Date date = DateUtil.parseStringToUtilDateTimeByFormat(strDateTime, sFormat);
