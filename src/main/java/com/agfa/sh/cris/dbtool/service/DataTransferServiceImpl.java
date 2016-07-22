@@ -28,7 +28,8 @@ public class DataTransferServiceImpl implements DataTransferService{
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
 
-	@Scheduled(cron="0/5 * * * * ?")
+	//@Scheduled(cron="0/10 * * * * ?")
+	@Scheduled(cron="0/30 * 22,23 * * ?")
 	@Override
 	public void transfer() {
 		String startstr = getCurrentStartPoint();
@@ -36,12 +37,15 @@ public class DataTransferServiceImpl implements DataTransferService{
 		Timestamp end= DateUtil.addDays(start, 1);		
 		String ends = DateUtil.format(end, DateUtil.DATE_FORMAT_YYYY_MM_DD);
 		if (logger.isInfoEnabled()) {
-			logger.info("=======================================================================================");
+			logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			logger.info("parameters : start => "+startstr+" , end => "+ends);
 		}
 		//List<SimplePatient> pinfos = simplePatientRepository.findSimplePatientInfosWithinOneday(start, end);
 		List<Object> pinfos = simplePatientRepository.findSimplePatientVisitsWithinOneday(start, end);
 		int total = pinfos.size();
+		if (logger.isInfoEnabled()) {
+			logger.info("retrieved "+total+" patients!");
+		}
 		long patientCount = getPatientCount();
 		if (total > 0) {
 			try {
@@ -49,11 +53,11 @@ public class DataTransferServiceImpl implements DataTransferService{
 					SimplePatientVisit pat = new SimplePatientVisit((Object[])o);
 					String prefix = "pat:"+pat.getPatientId()+":";
 					if (!isKeyExists(prefix+"pid")) { 
+						patientCount ++;
+						
 						setKeyValue("pat:"+patientCount, pat.getPatientId());
 						setKeyValue(prefix+"idx", String.valueOf(patientCount));
 						setKeyValue(prefix+"pid", pat.getPatientId());
-						
-						patientCount ++;
 					}
 						
 					setKeyValue(prefix+"id", pat.getId());
@@ -87,7 +91,8 @@ public class DataTransferServiceImpl implements DataTransferService{
 		}
 		
 		if (logger.isInfoEnabled()) {
-			logger.info("retrieved "+total+" patients!");
+			logger.info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+			logger.info("\n");
 		}
 	}
 	
@@ -117,7 +122,7 @@ public class DataTransferServiceImpl implements DataTransferService{
 	private long getPatientCount() {
 		String st = getValue(AppConstants.KEY_PATIENT_COUNT);
 		if (st == null || st.isEmpty()) {
-			return 1L;
+			return 0L;
 		}
 		return Long.parseLong(st);
 	}
