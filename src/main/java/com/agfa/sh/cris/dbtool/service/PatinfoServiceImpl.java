@@ -52,13 +52,13 @@ public class PatinfoServiceImpl implements PatinfoService {
 			Random rnd = new Random();
 			int idx = rnd.nextInt(total)+1; // [1, total]
 			String key = "pat:"+idx;
-			if (logger.isInfoEnabled()) {
-				logger.info("random patient index -> "+idx);
+			if (logger.isDebugEnabled()) {
+				logger.debug("random patient index -> "+idx);
 			}
 			if (isKeyExists(key)) {
 				String pid =getValue(key);
-				if (logger.isInfoEnabled()) {
-					logger.info("random patient id -> "+pid);
+				if (logger.isDebugEnabled()) {
+					logger.debug("random patient id -> "+pid);
 				}
 				return get(pid);
 			}
