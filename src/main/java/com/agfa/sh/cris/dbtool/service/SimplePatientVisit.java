@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 
 import com.agfa.sh.cris.dbtool.domain.SimplePatient;
 import com.agfa.sh.cris.dbtool.domain.SimpleVisit;
+import com.fasterxml.jackson.annotation.JsonView;
 
 public class SimplePatientVisit implements Serializable{
 
@@ -39,7 +40,6 @@ public class SimplePatientVisit implements Serializable{
 	private String room;
 	
 	private String bed;
-		
 
 	public String getId() {
 		return id;
@@ -120,7 +120,6 @@ public class SimplePatientVisit implements Serializable{
 	public void setPhysicalChkId(String physicalChkId) {
 		this.physicalChkId = physicalChkId;
 	}
-
 
 	public String getVisitNumber() {
 		return visitNumber;
