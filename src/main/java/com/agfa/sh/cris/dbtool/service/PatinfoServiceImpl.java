@@ -38,6 +38,7 @@ public class PatinfoServiceImpl implements PatinfoService {
 			pv.setNurseStation(getValue(prefix+"nsst"));
 			pv.setRoom(getValue(prefix+"room"));
 			pv.setBed(getValue(prefix+"bed"));
+			pv.setAccessionNumber(getValue(prefix+"accno"));
 			
 			return pv;
 			

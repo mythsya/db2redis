@@ -28,8 +28,8 @@ public class DataTransferServiceImpl implements DataTransferService{
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
 
-	//@Scheduled(cron="0/10 * * * * ?")
-	@Scheduled(cron="0/30 * 22,23 * * ?")
+	@Scheduled(cron="0/2 * * * * ?")
+	//@Scheduled(cron="0/30 * 22,23 * * ?")
 	@Override
 	public void transfer() {
 		String startstr = getCurrentStartPoint();
@@ -75,6 +75,7 @@ public class DataTransferServiceImpl implements DataTransferService{
 					setKeyValue(prefix+"nsst", pat.getNurseStation());
 					setKeyValue(prefix+"room", pat.getRoom());
 					setKeyValue(prefix+"bed", pat.getBed());
+					setKeyValue(prefix+"accno", pat.getAccessionNumber());
 					
 				}
 			} finally {

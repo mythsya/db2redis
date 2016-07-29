@@ -54,6 +54,9 @@ public class PatinfoJson {
 	@JsonView(WithJsonView.class)
 	public String bed;
 	
+	@JsonView(WithJsonView.class)
+	public String accessionNumber;
+	
 	public PatinfoJson() {	
 	}
 	
@@ -73,6 +76,7 @@ public class PatinfoJson {
 		this.nurseStation = null2Empty(p.getNurseStation());
 		this.room = null2Empty(p.getRoom());
 		this.bed = null2Empty(p.getBed());
+		this.accessionNumber = null2Empty(p.getAccessionNumber());
 	}
 	
 	private String null2Empty(String v) {

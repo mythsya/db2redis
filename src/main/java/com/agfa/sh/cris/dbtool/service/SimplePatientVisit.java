@@ -40,6 +40,8 @@ public class SimplePatientVisit implements Serializable{
 	private String room;
 	
 	private String bed;
+	
+	private String accessionNumber;
 
 	public String getId() {
 		return id;
@@ -165,25 +167,25 @@ public class SimplePatientVisit implements Serializable{
 	public SimplePatientVisit() {		
 	}
 	
-	public SimplePatientVisit(SimplePatient p, SimpleVisit v) {
-		this.id = p.getId();
-		this.patientId = p.getPatientId();
-		this.name = p.getName();
-		this.pinyin = p.getPinyin();
-		this.gender = p.getGender();
-		this.birthdate = p.getBirthdate();
-		this.inpId = p.getInpId();
-		this.outpId = p.getOutpId();
-		this.visitcardId = p.getVisitcardId();
-		this.physicalChkId = p.getPhysicalChkId();
-		this.visitNumber = v.getVisitNumber();
-		this.patientClass = v.getPatientClass();
-		this.nurseStation = v.getNurseStation();
-		this.room = v.getRoom();
-		this.bed = v.getBed();		
-	}
+//	public SimplePatientVisit(SimplePatient p, SimpleVisit v) {
+//		this.id = p.getId();
+//		this.patientId = p.getPatientId();
+//		this.name = p.getName();
+//		this.pinyin = p.getPinyin();
+//		this.gender = p.getGender();
+//		this.birthdate = p.getBirthdate();
+//		this.inpId = p.getInpId();
+//		this.outpId = p.getOutpId();
+//		this.visitcardId = p.getVisitcardId();
+//		this.physicalChkId = p.getPhysicalChkId();
+//		this.visitNumber = v.getVisitNumber();
+//		this.patientClass = v.getPatientClass();
+//		this.nurseStation = v.getNurseStation();
+//		this.room = v.getRoom();
+//		this.bed = v.getBed();		
+//	}
 	
-	public SimplePatientVisit(String id, String pid, String pname, String py, String psex, Timestamp pbirth, String pinpid, String poutpid, String pvcid, String pcid, String visitnumber, String vpatcls, String vnursest, String vroom, String vbed) {
+	public SimplePatientVisit(String id, String pid, String pname, String py, String psex, Timestamp pbirth, String pinpid, String poutpid, String pvcid, String pcid, String visitnumber, String vpatcls, String vnursest, String vroom, String vbed, String accno) {
 		this.id = id;
 		this.patientId = pid;
 		this.name = pname;
@@ -199,6 +201,7 @@ public class SimplePatientVisit implements Serializable{
 		this.nurseStation = vnursest;
 		this.room = vroom;
 		this.bed = vbed;
+		this.accessionNumber = accno;
 	}
 	
 	public SimplePatientVisit(Object[] values) {
@@ -217,7 +220,16 @@ public class SimplePatientVisit implements Serializable{
 			(String)values[11],
 			(String)values[12],
 			(String)values[13],
-			(String)values[14]
+			(String)values[14],
+			(String)values[15]
 		);
+	}
+
+	public String getAccessionNumber() {
+		return accessionNumber;
+	}
+
+	public void setAccessionNumber(String accessionNumber) {
+		this.accessionNumber = accessionNumber;
 	}
 }
